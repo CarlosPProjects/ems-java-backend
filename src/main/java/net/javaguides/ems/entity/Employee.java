@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -26,4 +29,14 @@ public class Employee {
 
     @Column(name = "email_id", nullable = false, unique = true)
     private String email;
+
+    @Column(name = "position")
+    private String position;
+
+    @Column(name = "department")
+    private String department;
+
+    @Column(name = "date_of_hire")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateOfHire;
 }
