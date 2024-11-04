@@ -20,7 +20,7 @@ public class Role {
     private RoleName roleName;
 
     public enum RoleName {
-        ADMIN, RH
+        SUPER, ADMIN, RH
     }
 
     public String getRoleNameAsString() {
