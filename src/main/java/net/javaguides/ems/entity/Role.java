@@ -15,10 +15,16 @@ import lombok.Setter;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "role_name", nullable = false, unique = true)
-    private String roleName;
+    private RoleName roleName;
+
+    public enum RoleName {
+        ADMIN, RH
+    }
+
+    public String getRoleNameAsString() {
+        return roleName.name();
+    }
 
 }
