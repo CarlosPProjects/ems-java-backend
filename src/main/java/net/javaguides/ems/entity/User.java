@@ -36,13 +36,12 @@ public class User implements UserDetails {
     @Column(name = "lastName")
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_name", nullable = false)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.getRoleNameAsString())));
+        return List.of(new SimpleGrantedAuthority((role.name())));
     }
 
     @Override
