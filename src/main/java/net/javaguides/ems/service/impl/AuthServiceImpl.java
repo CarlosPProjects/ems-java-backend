@@ -4,21 +4,21 @@ import lombok.RequiredArgsConstructor;
 import net.javaguides.ems.auth.AuthResponse;
 import net.javaguides.ems.auth.LoginRequest;
 import net.javaguides.ems.dto.UserDto;
-import net.javaguides.ems.entity.Role;
 import net.javaguides.ems.entity.User;
+import net.javaguides.ems.jwt.JwtServiceImpl;
 import net.javaguides.ems.mapper.UserMapper;
 import net.javaguides.ems.repository.RoleRepository;
 import net.javaguides.ems.repository.UserRepository;
-import net.javaguides.ems.service.AuthService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceImpl implements net.javaguides.ems.service.AuthService {
 
-    private UserRepository userRepository;
-    private RoleRepository roleRepository;
+    private final UserRepository userRepository;
+    private final JwtServiceImpl jwtServiceImpl;
+    private final RoleRepository roleRepository;
 
     @Override
     public AuthResponse loginUser(LoginRequest request) {
@@ -43,8 +43,7 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
 
-
-
-        return null;
+        return AuthResponse.builder()
+                .token(jwtServiceImpl.getToken(user)).build();
     }
 }
